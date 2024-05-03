@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Регистрация</title>
@@ -7,58 +7,30 @@
     <link rel="icon" th:href="@{/pictures/favicon.png}">
 </head>
 <body translate="no">
-<form method="post" class="login-wrap">
-    <div class="login-html">
-        <input id="tab-1" type="radio" name="tab" class="sign-in" checked=""><label for="tab-1" class="tab">Вход</label>
-        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Регистрация</label>
-        <div class="login-form">
-            <div class="sign-in-htm">
-                <div class="group">
-                    <label for="user" class="label">Имя пользователя</label>
-                    <input id="user" type="text" class="input">
-                </div>
-                <div class="group">
-                    <label for="pass" class="label">Пароль</label>
-                    <input id="pass" type="password" class="input" data-type="password">
-                </div>
-                <div class="group">
-                    <input id="check" type="checkbox" class="check" checked="">
-                    <label for="check"><span class="icon"></span> Оставаться в системе</label>
-                </div>
-                <div class="group">
-                    <input type="submit" class="button" value="Войти">
-                </div>
-                <div class="hr"></div>
-                <div class="foot-lnk">
-                    <a href="#forgot">Забыли пароль?</a>
-                </div>
-            </div>
-            <div class="sign-up-htm">
-                <div class="group">
-                    <label for="user" class="label">Имя пользователя</label>
-                    <input id="user" type="text" class="input">
-                </div>
-                <div class="group">
-                    <label for="pass" class="label">Пароль</label>
-                    <input id="pass" type="password" class="input" data-type="password">
-                </div>
-                <div class="group">
-                    <label for="pass" class="label">Повторите пароль</label>
-                    <input id="pass" type="password" class="input" data-type="password">
-                </div>
-                <div class="group">
-                    <label for="pass" class="label">Адрес электронной почты</label>
-                    <input id="pass" type="text" class="input">
-                </div>
-                <div class="group">
-                    <input type="submit" class="button" value="Зарегистрироваться">
-                </div>
-                <div class="hr"></div>
-                <div class="foot-lnk">
-                    <label for="tab-1">Уже зарегистрированы?</label>
-                </div>
-            </div>
-        </div>
+<form th:method="POST" th:action="@{/client}" th:object="${client}">
+    <h2>Регистрация</h2>
+    <div class="group">
+        <div style="color: #941919" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        <label for="name" class="label">Имя пользователя</label>
+        <input id="name" th:field="*{name}" type="text" class="input">
+    </div>
+    <div class="group">
+        <div style="color: #941919" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+        <label for="age" class="label">Ваш возраст</label>
+        <input id="age" th:field="*{age}" type="text" class="input">
+    </div>
+    <div class="group">
+        <div style="color: #941919" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        <label for="pass" class="label">Пароль</label>
+        <input id="pass" th:field="*{password}" type="password" class="input" data-type="password">
+    </div>
+    <div class="group">
+        <div style="color: #941919" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+        <label for="email" class="label">Адрес электронной почты</label>
+        <input id="email" th:field="*{email}" type="text" class="input">
+    </div>
+    <div class="group">
+        <input type="submit" class="button" value="Зарегистрироваться">
     </div>
 </form>
 </body>

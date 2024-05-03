@@ -1,0 +1,28 @@
+package ru.yuriy.carsharing.models;
+
+import jakarta.validation.constraints.*;
+import lombok.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class Client
+{
+    //private int id;
+    @NotEmpty(message = "Имя не может быть пустым!")
+    @Size(min =3, max = 20, message = "Слишком длинное имя!")
+    private String name;
+
+    @Min(value = 16, message = "Некорректный возраст!")
+    private int age;
+
+    @NotEmpty(message = "Пароль обязан быть!")
+    @Size(min = 5, max = 100, message = "Пароль слишком короткий, минимум 5 символов!")
+    private String password;
+
+    @NotEmpty(message = "Почта не может быть пустой!")
+    @Email(message = "Введена некорректная почта!")
+    private String email;
+}
