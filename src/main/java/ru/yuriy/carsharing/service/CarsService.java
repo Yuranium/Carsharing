@@ -22,7 +22,6 @@ public class CarsService
 
     public List<Car> findAll()
     {
-        System.out.println(repository.findAll());
         return (List<Car>) repository.findAll();
     }
 }

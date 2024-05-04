@@ -7,6 +7,7 @@
     <link rel="icon" th:href="@{/pictures/favicon.png}">
 </head>
 <body>
+<h1>Представленные автомобили</h1>
 <div th:each="car : ${cars}" class="car-section">
     <div class="car-image">
         <img th:src="@{${car.getImg()}}" alt="Car">
