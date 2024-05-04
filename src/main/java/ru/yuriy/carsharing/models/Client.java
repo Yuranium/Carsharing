@@ -2,6 +2,7 @@ package ru.yuriy.carsharing.models;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
 
 @Getter
 @Setter
@@ -10,7 +11,8 @@ import lombok.*;
 @ToString
 public class Client
 {
-    //private int id;
+    @Id
+    private int id;
     @NotEmpty(message = "Имя не может быть пустым!")
     @Size(min =3, max = 20, message = "Слишком длинное имя!")
     private String name;

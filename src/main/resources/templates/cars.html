@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Автомобили</title>
+    <link rel="stylesheet" th:href="@{/css/cars.css}">
+    <link rel="icon" th:href="@{/pictures/favicon.png}">
+</head>
+<body>
+<div th:each="car : ${cars}" class="car-section">
+    <div class="car-image">
+        <img th:src="@{${car.getImg()}}" alt="Car">
+    </div>
+    <div class="car-description">
+        <h2 th:text="${car.name}">Название автомобиля</h2>
+        <p th:text="${car.description}">Описание автомобиля</p>
+    </div>
+    <div class="rent-button">
+        <button th:href="@{/car/{id}(id=${car.getId()})}">Арендовать</button>
+    </div>
+    <br>
+</div>
+</body>
+</html>
