@@ -11,4 +11,10 @@ public class HomeController
     {
         return "home";
     }
+
+    @GetMapping("/about_us")
+    public String AboutUs()
+    {
+        return "about_us";
+    }
 }

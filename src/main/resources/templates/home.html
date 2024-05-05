@@ -13,11 +13,10 @@
 </header>
 <nav>
     <ul>
-        <li><a href="#">Войти</a></li>
-        <li><a href="#">Просмотр авто</a></li>
-        <li><a href="#">Тарифы</a></li>
-        <li><a href="#">Контакты</a></li>
-        <li><a href="#">О нас</a></li>
+        <li><a th:href="@{/client/new}">Зарегистрироваться</a></li>
+        <li><a th:href="@{/client/authentication}">Войти</a></li>
+        <li><a th:href="@{/car}">Просмотр авто</a></li>
+        <li><a th:href="@{/about_us}">О нас</a></li>
     </ul>
 </nav>
 <section>
@@ -30,7 +29,7 @@
 </section>
 <section>
     <h2>Контакты</h2>
-    <p>Адрес: ул. Примерная, д. 123<br>Телефон: +7 (XXX) XXX-XX-XX<br>Email: info@carrentalcompany.com</p>
+    <p>Адрес: ул. Примерная, д. 123<br>Телефон: +7 800 555 3535<br>Email: info@carrentalcompany.com</p>
 </section>
 <footer>
     <p>© 2024 Каршеринговая компания. Все права защищены.</p>

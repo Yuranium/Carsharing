@@ -3,7 +3,6 @@ package ru.yuriy.carsharing.models;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.data.annotation.Id;
-import ru.yuriy.carsharing.enums.ClientRole;
 
 @Getter
 @Setter
@@ -32,6 +31,5 @@ public class Client
     @Min(value = 0, message = "Некорректный стаж вождения!")
     private int drivingExperience;
 
-    @NotNull(message = "Роль не назначена!")
     private String role;
 }
