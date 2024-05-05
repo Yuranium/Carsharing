@@ -7,31 +7,43 @@
     <link rel="icon" th:href="@{/pictures/favicon.png}">
 </head>
 <body translate="no">
-<form th:method="POST" th:action="@{/client}" th:object="${client}">
-    <h2>Регистрация</h2>
+<div class="form">
+    <form th:method="POST" th:action="@{/client/new}" th:object="${client}">
+        <h2>Регистрация</h2>
+        <div class="group">
+            <div style="color: #941919" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+            <label for="name" class="label">Имя пользователя</label>
+            <input id="name" th:field="*{name}" type="text" class="input">
+        </div>
+        <div class="group">
+            <div style="color: #941919" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+            <label for="age" class="label">Ваш возраст</label>
+            <input id="age" th:field="*{age}" type="text" class="input">
+        </div>
+        <div class="group">
+            <div style="color: #941919" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            <label for="pass" class="label">Пароль</label>
+            <input id="pass" th:field="*{password}" type="password" class="input" data-type="password">
+        </div>
+        <div class="group">
+            <div style="color: #941919" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            <label for="email" class="label">Адрес электронной почты</label>
+            <input id="email" th:field="*{email}" type="text" class="input">
+        </div>
+        <div class="group">
+            <div style="color: #941919" th:if="${#fields.hasErrors('drivingExperience')}" th:errors="*{drivingExperience}"></div>
+            <label for="drivingExperience" class="label">Стаж вождения</label>
+            <input id="drivingExperience" th:field="*{drivingExperience}" type="text" class="input">
+        </div>
+        <div class="group">
+            <input type="submit" class="button" value="Зарегистрироваться">
+        </div>
+    </form>
     <div class="group">
-        <div style="color: #941919" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-        <label for="name" class="label">Имя пользователя</label>
-        <input id="name" th:field="*{name}" type="text" class="input">
+        <label>Уже есть аккаунт?</label>
+            <a th:href="@{/client/authentication}" class="redirect">Войти</a>
+
     </div>
-    <div class="group">
-        <div style="color: #941919" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
-        <label for="age" class="label">Ваш возраст</label>
-        <input id="age" th:field="*{age}" type="text" class="input">
-    </div>
-    <div class="group">
-        <div style="color: #941919" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-        <label for="pass" class="label">Пароль</label>
-        <input id="pass" th:field="*{password}" type="password" class="input" data-type="password">
-    </div>
-    <div class="group">
-        <div style="color: #941919" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-        <label for="email" class="label">Адрес электронной почты</label>
-        <input id="email" th:field="*{email}" type="text" class="input">
-    </div>
-    <div class="group">
-        <input type="submit" class="button" value="Зарегистрироваться">
-    </div>
-</form>
+</div>
 </body>
 </html>

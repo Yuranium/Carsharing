@@ -19,7 +19,7 @@ public class ClientsController
         return "registration";
     }
 
-    @PostMapping()
+    @PostMapping("/new")
     public String create(@ModelAttribute("client") @Valid Client client, BindingResult result)
     {
         if (result.hasErrors()) {
@@ -28,5 +28,22 @@ public class ClientsController
         }
         System.out.println(client);
         return "redirect:/";
+    }
+
+    @GetMapping("/authentication")
+    public String authentication(@ModelAttribute("client") Client client)
+    {
+        return "authentication";
+    }
+
+    @PostMapping("/login")
+    public String input(@ModelAttribute("client") @Valid Client client, BindingResult result)
+    {
+        if (result.hasErrors()) {
+            System.out.println(client);
+            return "authentication";
+        }
+        System.out.println(client);
+        return "redirect:client_profile";
     }
 }

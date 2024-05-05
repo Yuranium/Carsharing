@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .profile-container
+        {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+        .profile-cont {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-gap: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        .profile-info {
+            display: grid;
+            grid-template-rows: repeat(5, auto);
+            grid-gap: 10px;
+
+        }
+        .profile-info div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 3%;
+        }
+        .profile-info label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .profile-circle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #ccc;
+            text-align: center;
+            line-height: 100px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+<div class="profile-container">
+    <h1>Профиль пользователя</h1>
+    <div class="profile-cont">
+    <div class="profile-info">
+        <div>
+            <label for="userId">Уникальное ID:</label>
+            <span id="userId">1357924680</span>
+        </div>
+        <div>
+            <label for="username">Имя пользователя:</label>
+            <span id="username">John Doe</span>
+        </div>
+        <div>
+            <label for="age">Возраст:</label>
+            <span id="age">30 лет</span>
+        </div>
+        <div>
+            <label for="email">Электронная почта:</label>
+            <span id="email">johndoe@example.com</span>
+        </div>
+        <div>
+            <label for="drivingExperience">Стаж вождения:</label>
+            <span id="drivingExperience">8 лет</span>
+        </div>
+        <div>
+            <label for="role">Роль на сайте:</label>
+            <span id="role">USER</span>
+        </div>
+    </div>
+    <div class="profile-circle">
+        <div class="circle">JD</div>
+    </div>
+    </div>
+</div>
+</body>
+</html>

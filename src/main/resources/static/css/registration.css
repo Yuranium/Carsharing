@@ -9,7 +9,7 @@ body
     align-items: center;
     height: 100vh;
 }
-form
+.form
 {
     background-color: #fff;
     padding: 30px;
@@ -20,7 +20,7 @@ input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="date"],
-button
+.button
 {
     width: 100%;
     padding: 10px;
@@ -30,13 +30,29 @@ button
     box-sizing: border-box;
     font-size: 16px;
 }
-button
+.button
 {
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
 }
-button:hover
+.button:hover, .redirect:hover
 {
     background-color: #0056b3;
+}
+.redirect
+{
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
 }
