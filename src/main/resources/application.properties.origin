@@ -1,4 +1,7 @@
+# Configuration Spring Boot
 spring.application.name=
+spring.main.allow-bean-definition-overriding=
+spring.main.allow-circular-references=
 
 # Database
 spring.datasource.url=
