@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.yuriy.carsharing.models.Client;
 import ru.yuriy.carsharing.repository.ClientsRepository;
 
@@ -27,7 +28,12 @@ public class ClientsService implements UserDetailsService
         Optional<Client> client = repository.findByName(username);
         if (client.isEmpty())
             throw new UsernameNotFoundException("Такой пользователь не найден!");
-        System.out.println("Успешно  " + client.get());
         return client.get();
+    }
+
+    @Transactional
+    public void save(Client client)
+    {
+        repository.save(client);
     }
 }

@@ -2,22 +2,33 @@ package ru.yuriy.carsharing.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.yuriy.carsharing.models.Client;
+import ru.yuriy.carsharing.service.ClientsService;
+import ru.yuriy.carsharing.validator.ClientValidator;
 
 @Controller
 @RequestMapping("/client")
 public class ClientsController
 {
-//    private final ClientsService service;
-//
-//    @Autowired
-//    public ClientsController(ClientsService service)
-//    {
-//        this.service = service;
-//    }
+    private final ClientsService service;
+
+    private final ClientValidator validator;
+
+    private final PasswordEncoder encoder;
+
+    @Autowired
+    public ClientsController(ClientsService service, ClientValidator validator, PasswordEncoder encoder)
+    {
+        this.service = service;
+        this.validator = validator;
+        this.encoder = encoder;
+    }
 
     @GetMapping("/new")
     public String registration(@ModelAttribute("client") Client client) {
@@ -25,11 +36,14 @@ public class ClientsController
     }
 
     @PostMapping("/new")
-    public String create(@ModelAttribute("client") @Valid Client client, BindingResult result) {
-        if (result.hasErrors()) {
-            System.out.println("Ошибка: " + client);
+    public String create(@ModelAttribute("client") @Valid Client client, BindingResult result)
+    {
+        validator.validate(client, result);
+        if (result.hasErrors())
             return "registration";
-        }
+        client.setRole("USER");
+        client.setPassword(encoder.encode(client.getPassword()));
+        service.save(client);
         System.out.println("Стабильно: " + client);
         return "redirect:/";
     }
@@ -49,10 +63,11 @@ public class ClientsController
         return "redirect:/client_profile";
     }
 
-    @GetMapping("/profile/{id}")
-    public String profile(@PathVariable("id") int id)
+    @GetMapping("/profile")
+    public String profile(Model model)
     {
-        System.out.println(id);
+        Client client = (Client) service.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("client", client);
         return "client_profile";
     }
 }
