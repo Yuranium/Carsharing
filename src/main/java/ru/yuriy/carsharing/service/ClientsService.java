@@ -11,7 +11,7 @@ import ru.yuriy.carsharing.repository.ClientsRepository;
 import java.util.Optional;
 
 @Service
-public class ClientsService implements UserDetailsService
+public class ClientsService /*implements UserDetailsService*/
 {
     private final ClientsRepository repository;
 
@@ -21,12 +21,17 @@ public class ClientsService implements UserDetailsService
         this.repository = repository;
     }
 
-    @Override
+    public Client findClient(String name)
+    {
+        return repository.findByName(name).orElse(null);
+    }
+
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
         Optional<Client> client = repository.findByName(username);
         if (client.isEmpty())
             throw new UsernameNotFoundException("Такой пользователь не найден!");
+        System.out.println("Успешно  " + client.get());
         return client.get();
     }
 }

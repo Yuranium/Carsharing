@@ -9,6 +9,9 @@
 <body translate="no">
 <form th:method="POST" th:action="@{/client/login}" th:object="${client}">
     <h2>Аутентификация</h2>
+    <div style="color: #941919" th:if="${param.error}" >
+        Неправильное имя или пароль!
+    </div>
     <div class="group">
         <div style="color: #941919" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
         <label for="name" class="label">Имя пользователя</label>
@@ -25,7 +28,7 @@
         <input id="email" th:field="*{email}" type="text" class="input">
     </div>
     <div class="group">
-        <input th:href="@{/client/profile/{id}(id=${client.getId()})}" type="submit" class="button" value="Войти">
+        <input type="submit" class="button" value="Войти">
     </div>
 </form>
 </body>
