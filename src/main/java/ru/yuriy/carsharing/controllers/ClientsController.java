@@ -6,19 +6,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.yuriy.carsharing.models.Client;
-import ru.yuriy.carsharing.service.ClientsService;
 
 @Controller
 @RequestMapping("/client")
 public class ClientsController
 {
-    private final ClientsService service;
-
-    @Autowired
-    public ClientsController(ClientsService service)
-    {
-        this.service = service;
-    }
+//    private final ClientsService service;
+//
+//    @Autowired
+//    public ClientsController(ClientsService service)
+//    {
+//        this.service = service;
+//    }
 
     @GetMapping("/new")
     public String registration(@ModelAttribute("client") Client client) {
@@ -28,10 +27,10 @@ public class ClientsController
     @PostMapping("/new")
     public String create(@ModelAttribute("client") @Valid Client client, BindingResult result) {
         if (result.hasErrors()) {
-            System.out.println(client);
+            System.out.println("Ошибка: " + client);
             return "registration";
         }
-        System.out.println(client);
+        System.out.println("Стабильно: " + client);
         return "redirect:/";
     }
 
@@ -42,12 +41,12 @@ public class ClientsController
 
     @PostMapping("/login")
     public String input(@ModelAttribute("client") @Valid Client client, BindingResult result) {
-        if (result.hasErrors() || service.loadUserByUsername(client.getName()) == null) {
-            System.out.println(client);
+        if (result.hasErrors()) {
+            System.out.println("Ошибка: " + client);
             return "authentication";
         }
-        System.out.println(client);
-        return "client_profile";
+        System.out.println("Стабильно: " + client);
+        return "redirect:/client_profile";
     }
 
     @GetMapping("/profile/{id}")

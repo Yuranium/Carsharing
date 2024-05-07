@@ -3,54 +3,48 @@ package ru.yuriy.carsharing.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import ru.yuriy.carsharing.security.ClientProvider;
+import ru.yuriy.carsharing.service.ClientsService;
 
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfiguration
+public class SecurityConfig
 {
-    private final ClientProvider provider;
+    private final ClientsService service;
 
     @Autowired
-    public SecurityConfig(ClientProvider provider)
+    public SecurityConfig(ClientsService service)
     {
-        this.provider = provider;
+        this.service = service;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
         http
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/", "/about_us", "/car", "/login", "/registration",
                                 "client/new","client/login", "client/authentication").permitAll()
                         .requestMatchers("/resources/**", "/static/**", "/css/**", "/pictures/**",
-                                "/sql/**", "/templates/**").permitAll()
+                                "/sql/**", "/templates/**", "/errors/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")
-                        /*.loginProcessingUrl("/client/login")*/
+                        .loginPage("/login").permitAll()
                         .defaultSuccessUrl("/", true)
                         .failureUrl("/login?error")
                         .permitAll()
                 )
                 .logout(LogoutConfigurer::permitAll);
-//        http
-//                .authorizeHttpRequests(c -> c
-//                        .requestMatchers("/login").permitAll()
-//                        .anyRequest().authenticated())
-//                .exceptionHandling(c ->
-//                        // основная точка входа
-//                        c.authenticationEntryPoint(
-//                                (req, res, ex) -> res.sendRedirect("/login")));
         return http.build();
     }
 //
@@ -66,8 +60,24 @@ public class SecurityConfig extends WebSecurityConfiguration
 //        return new InMemoryUserDetailsManager(user);
 //    }
 
-    protected void configure(AuthenticationManagerBuilder builder)
+    @Bean
+    public UserDetailsService service()
     {
-        builder.authenticationProvider(provider);
+        return service;
+    }
+
+    @Bean
+    public DaoAuthenticationProvider provider()
+    {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(passwordEncoder());
+        provider.setUserDetailsService(service);
+        return provider;
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder()
+    {
+        return new BCryptPasswordEncoder();
     }
 }
