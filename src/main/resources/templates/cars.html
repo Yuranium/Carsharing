@@ -10,7 +10,7 @@
 <h1>Представленные автомобили</h1>
 <div th:each="car : ${cars}" class="car-section">
     <div class="car-image">
-        <img th:src="@{${car.getImg()}}" alt="Car">
+        <img th:src="@{${car.getImage()}}" alt="Car">
     </div>
     <div class="car-description">
         <h2 th:text="${car.name}">Название автомобиля</h2>

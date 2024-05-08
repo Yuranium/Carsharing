@@ -10,12 +10,16 @@ import ru.yuriy.carsharing.enums.CarDrive;
 @Setter
 @Entity
 @ToString
-@Table(name = "cars")
+@Table(name = "car")
 public class Car
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    private Client owner;
 
     @Column(name = "image")
     private String image;
@@ -30,7 +34,7 @@ public class Car
     private double price_per_min;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "carDrive")
+    @Column(name = "drive")
     private CarDrive carDrive;
 
     @Column(name = "engine_capacity")

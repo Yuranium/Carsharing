@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import ru.yuriy.carsharing.enums.ClientRole;
 
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,6 +22,9 @@ public class Client implements UserDetails
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Car> cars;
 
     @Column(name = "name")
     @NotEmpty(message = "Имя не может быть пустым!")
@@ -45,8 +49,9 @@ public class Client implements UserDetails
     @Min(value = 0, message = "Некорректный стаж вождения!")
     private int drivingExperience;
 
-    @Column(name = "role", columnDefinition = "enum('GUEST', 'USER', 'ADMIN')")
+
     @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private ClientRole role;
 
     @Override
