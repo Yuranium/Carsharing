@@ -17,7 +17,7 @@
         <p th:text="${car.description}">Описание автомобиля</p>
     </div>
     <div class="rent-button">
-        <button th:href="@{/car/{id}(id=${car.getId()})}">Арендовать</button>
+        <a th:href="@{/car/{id}(id=${car.getId()})}">Арендовать</a>
     </div>
     <br>
 </div>

@@ -11,12 +11,14 @@ import ru.yuriy.carsharing.repository.CarsRepository;
 import ru.yuriy.carsharing.service.CarsService;
 
 import java.util.Comparator;
+import java.util.List;
 
 @Controller
 @RequestMapping("/car")
 public class CarsController
 {
     private final CarsService service;
+    private List<Car> cars;
 
     @Autowired
     public CarsController(CarsService service)
@@ -27,13 +29,20 @@ public class CarsController
     @GetMapping
     public String cars(Model model)
     {
-        model.addAttribute("cars", service.findAll().stream().sorted(Comparator.comparingInt(Car::getId)));
+        if (cars == null)
+        {
+            cars = service.findAll();
+            model.addAttribute("cars", cars.stream().sorted(Comparator.comparingInt(Car::getId)));
+        }
+        else model.addAttribute("cars", cars);
         return "cars";
     }
 
     @GetMapping("/{id}")
-    public String car(@PathVariable("id") int id)
+    public String car(@PathVariable("id") int id, Model model)
     {
-        return null;
+        Car car = service.findById(id);
+        model.addAttribute("car", car);
+        return "car_profile";
     }
 }

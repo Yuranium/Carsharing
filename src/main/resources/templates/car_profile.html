@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:object="${car}" th:text="${car.getName()}">Title</title>
+    <link rel="stylesheet" th:href="@{/css/car_profile.css}">
+    <link rel="icon" th:href="@{/pictures/favicon.png}">
+</head>
+<body>
+<div class="content-profile-page">
+    <div class="profile-user-page card">
+        <div class="img-user-profile">
+            <img class="profile-bgHome" th:src="@{${car.getImage()}}" alt="Car"/>
+        </div>
+        <a class="btn" th:href="@{/car}">Назад</a>
+        <a class="right_button" th:href="@{/}">Арендовать</a>
+        <div class="user-profile-data">
+            <h1 th:text="${car.getName()}"></h1>
+            <p th:text="${car.getPrice_per_min()} + ' руб. мин.'"></p>
+        </div>
+        <div class="description-profile">
+            <p th:text="${car.getDescription()}"></p>
+        </div>
+        <ul class="data-user">
+            <li><a><strong>Привод</strong><span th:text="${car.getCarDrive().getDrive()}"></span></a></li>
+            <li><a><strong>Объём двигателя</strong><span th:text="${car.getEngine_capacity()}"></span></a></li>
+            <li><a><strong>Мощность двигателя</strong><span th:text="${car.getEngine_power()}"></span></a></li>
+            <li><a><strong>Подогрев сидений</strong><span th:text="${car.isSeat_heating() ? 'Да' : 'Нет'}"></span></a></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

@@ -34,7 +34,8 @@ body {
     flex: 1;
     text-align: center;
 }
-button {
+a {
+    text-decoration: none;
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
@@ -43,6 +44,6 @@ button {
     font-size: 16px;
     cursor: pointer;
 }
-button:hover {
+a:hover {
     background-color: #0056b3;
 }
