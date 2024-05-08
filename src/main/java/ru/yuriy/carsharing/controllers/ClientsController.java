@@ -2,12 +2,14 @@ package ru.yuriy.carsharing.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.yuriy.carsharing.enums.ClientRole;
 import ru.yuriy.carsharing.models.Client;
 import ru.yuriy.carsharing.service.ClientsService;
 import ru.yuriy.carsharing.validator.ClientValidator;
@@ -41,7 +43,7 @@ public class ClientsController
         validator.validate(client, result);
         if (result.hasErrors())
             return "registration";
-        client.setRole("USER");
+        client.setRole(ClientRole.USER);
         client.setPassword(encoder.encode(client.getPassword()));
         service.save(client);
         System.out.println("Стабильно: " + client);

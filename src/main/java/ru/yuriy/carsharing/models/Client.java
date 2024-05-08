@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.yuriy.carsharing.enums.ClientRole;
 
 import java.util.Collection;
 
@@ -44,8 +45,9 @@ public class Client implements UserDetails
     @Min(value = 0, message = "Некорректный стаж вождения!")
     private int drivingExperience;
 
-    @Column(name = "role")
-    private String role;
+    @Column(name = "role", columnDefinition = "enum('GUEST', 'USER', 'ADMIN')")
+    @Enumerated(EnumType.STRING)
+    private ClientRole role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
