@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yuriy.carsharing.models.Car;
-import ru.yuriy.carsharing.models.Client;
 import ru.yuriy.carsharing.repository.CarsRepository;
 
 import java.util.List;

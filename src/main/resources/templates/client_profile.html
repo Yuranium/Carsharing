@@ -44,5 +44,28 @@
         </div>
     </div>
 </div>
+<div th:if="${client.role.role.equals('ROLE_ADMIN')}" class="client-block">
+    <h3>Текущие пользователи</h3>
+    <div th:each="user : ${users}">
+<!--        <div class="client-image">-->
+<!--            <img th:src="@{}" alt="Client">-->
+<!--        </div>-->
+        <div class="client-description">
+            <span>ID пользователя</span><p th:text="${user.getId()}"></p>
+            <span>Арендовано автомобилей: </span><p th:text="${user.getCars().size()}"></p>
+            <span>Имя пользователя: </span><p th:text="${user.getName()}"></p>
+            <span>Роль: </span><p th:text="${user.getRole()}"></p>
+            <span>Возраст пользователя: </span><p th:text="${user.getAge()}"></p>
+            <span>Электронная почта пользователя: </span><p th:text="${user.getEmail()}"></p>
+            <span>Стаж вождения: </span><p th:text="${user.getDrivingExperience()}"></p>
+        </div>
+        <div class="rent-button">
+            <form th:method="DELETE" th:action="@{/admin/client/{id}(id=${user.getId()})}">
+                <input type="submit" class="button" value="Удалить пользователя">
+            </form>
+        </div>
+        <br>
+    </div>
+</div>
 </body>
 </html>

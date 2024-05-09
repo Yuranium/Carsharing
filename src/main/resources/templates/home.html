@@ -13,7 +13,8 @@
 </header>
 <nav>
     <ul th:object="${auth}">
-        <li><a th:href="@{/client/profile}" th:if="${auth != null}">Профиль</a></li>
+        <li><a th:href="@{/{client}(client=${auth.getRole().getRole().equals('ROLE_ADMIN') ? 'admin' : 'client'})/profile}"
+               th:if="${auth != null}">Профиль</a></li>
         <li><a th:href="@{/logout}" th:if="${auth != null}">Выход</a></li>
         <li><a th:href="@{/registration}" th:if="${auth == null}">Зарегистрироваться</a></li>
         <li><a th:href="@{/login}" th:if="${auth == null}">Войти</a></li>

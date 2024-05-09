@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.yuriy.carsharing.enums.ClientRole;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -49,7 +51,6 @@ public class Client implements UserDetails
     @Min(value = 0, message = "Некорректный стаж вождения!")
     private int drivingExperience;
 
-
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private ClientRole role;
@@ -57,7 +58,7 @@ public class Client implements UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
-        return null;
+        return Collections.singletonList(new SimpleGrantedAuthority(role.getRole()));
     }
 
     @Override

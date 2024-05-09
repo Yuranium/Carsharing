@@ -10,7 +10,7 @@ create table car(
     engine_capacity real not null,
     engine_power real not null,
     seat_heating boolean not null
-)
+);
 
 insert into car(client_id, image, name, description, price_per_min, drive, engine_capacity, engine_power, seat_heating)
 values(null, '/pictures/ŠKODA_OCTAVIA.png', 'ŠKODA OCTAVIA',

@@ -62,3 +62,40 @@ body {
     margin: 5%;
     padding: 3%;
 }
+
+.client-block {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.client-image img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.client-description {
+    margin-bottom: 10px;
+}
+
+.client-description span {
+    font-weight: bold;
+}
+
+.rent-button a {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.rent-button a:hover {
+    background-color: #0056b3;
+}

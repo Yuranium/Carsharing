@@ -2,7 +2,6 @@ package ru.yuriy.carsharing.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,6 +22,7 @@ public class ClientsController
     private final ClientValidator validator;
 
     private final PasswordEncoder encoder;
+
 
     @Autowired
     public ClientsController(ClientsService service, ClientValidator validator, PasswordEncoder encoder)
@@ -56,7 +56,8 @@ public class ClientsController
     }
 
     @PostMapping("/login")
-    public String input(@ModelAttribute("client") @Valid Client client, BindingResult result) {
+    public String login(@ModelAttribute("client") @Valid Client client, BindingResult result)
+    {
         if (result.hasErrors()) {
             System.out.println("Ошибка: " + client);
             return "authentication";
