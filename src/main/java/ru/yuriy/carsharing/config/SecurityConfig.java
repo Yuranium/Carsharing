@@ -7,7 +7,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -35,7 +34,7 @@ public class SecurityConfig
                 .anonymous(req -> req.authorities(ClientRole.GUEST.getRole()))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/", "/about_us", "/car", "/login", "/logout", "/registration",
+                        .requestMatchers("/", "/about_us", "/car/**", "/login", "/logout", "/registration",
                                 "client/new","client/login", "client/authentication")
                         .permitAll()/*.anyRequest().hasAnyRole("GUEST", "USER", "ADMIN")*/
                         .requestMatchers("/resources/**", "/static/**", "/css/**", "/pictures/**",

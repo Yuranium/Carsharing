@@ -11,4 +11,6 @@ import java.util.List;
 public interface AdminsRepository extends CrudRepository<Client, Integer>
 {
     List<Client> findByRole(ClientRole role);
+
+    void deleteById(int id);
 }

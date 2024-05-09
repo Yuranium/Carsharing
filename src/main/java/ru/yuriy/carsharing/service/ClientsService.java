@@ -1,10 +1,15 @@
 package ru.yuriy.carsharing.service;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yuriy.carsharing.enums.ClientRole;
@@ -47,5 +52,17 @@ public class ClientsService implements UserDetailsService
     public void deleteUserById(int id)
     {
         repository.deleteById(id);
+    }
+
+    @Transactional
+    public void deleteCurrentProfile(HttpServletRequest request, HttpServletResponse response)
+    {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null)
+        {
+            Client client = (Client) authentication.getPrincipal();
+            repository.deleteById(client.getId());
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+        }
     }
 }

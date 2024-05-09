@@ -1,9 +1,13 @@
 package ru.yuriy.carsharing.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,7 +47,7 @@ public class ClientsController
         validator.validate(client, result);
         if (result.hasErrors())
             return "registration";
-        client.setRole(ClientRole.USER);
+        client.setRole(ClientRole.CLIENT);
         client.setPassword(encoder.encode(client.getPassword()));
         service.save(client);
         System.out.println("Стабильно: " + client);
@@ -72,5 +76,12 @@ public class ClientsController
         Client client = (Client) service.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         model.addAttribute("client", client);
         return "client_profile";
+    }
+
+    @DeleteMapping("/delete")
+    public String deleteClient(HttpServletRequest request, HttpServletResponse response)
+    {
+        service.deleteCurrentProfile(request, response);
+        return "redirect:/";
     }
 }

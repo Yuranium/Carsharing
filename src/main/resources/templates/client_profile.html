@@ -39,8 +39,12 @@
         </div>
         <div class="profile-circle">
             <div th:text="${client.name.toUpperCase.charAt(0)}" class="circle"></div>
-            <button>Редактировать профиль</button>
-            <button>Удалить профиль</button>
+            <form th:method="PATCH" th:action="@{/{role}/update(role=${client.getRole().getRole().toLowerCase()})}">
+                <input type="submit" class="button" value="Редактировать профиль">
+            </form>
+            <form th:method="DELETE" th:action="@{/{role}/delete(role=${client.getRole().getRole().toLowerCase()})}">
+                <input type="submit" class="button" value="Удалить профиль">
+            </form>
         </div>
     </div>
 </div>

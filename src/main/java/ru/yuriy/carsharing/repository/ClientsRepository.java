@@ -12,4 +12,6 @@ public interface ClientsRepository extends CrudRepository<Client, Integer>
     Optional<Client> findByName(String name);
 
     Optional<Client> findByNameAndEmail(String name, String email);
+
+    void deleteById(int id);
 }
