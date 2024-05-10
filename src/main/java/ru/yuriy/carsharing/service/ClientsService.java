@@ -40,6 +40,12 @@ public class ClientsService implements UserDetailsService
     }
 
     @Transactional
+    public Client findById(int id)
+    {
+        return repository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Такой пользователь не найден!"));
+    }
+
+    @Transactional
     public void save(Client client)
     {
         repository.save(client);
@@ -63,9 +69,10 @@ public class ClientsService implements UserDetailsService
         }
     }
 
-    public void updateCurrentProfile(int id, List<Car> cars, String name, int age,
+    @Transactional
+    public void updateCurrentProfile(int id, String name, int age,
                                      String password, String email, int drivingExperience)
     {
-        repository.updateClientById(id, cars, name, age, password, email, drivingExperience);
+        repository.updateClientById(id, name, age, password, email, drivingExperience);
     }
 }

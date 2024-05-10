@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.yuriy.carsharing.models.Car;
 import ru.yuriy.carsharing.models.Client;
 import ru.yuriy.carsharing.repository.CarsRepository;
+import ru.yuriy.carsharing.repository.ClientsRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,10 +20,13 @@ public class CarsService
 {
     private final CarsRepository repository;
 
+    private final ClientsRepository clientsRepository;
+
     @Autowired
-    public CarsService(CarsRepository repository)
+    public CarsService(CarsRepository repository, ClientsRepository clientsRepository)
     {
         this.repository = repository;
+        this.clientsRepository = clientsRepository;
     }
 
     public List<Car> findAll()
@@ -43,7 +46,11 @@ public class CarsService
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Client client = (Client) authentication.getPrincipal();
         Car car = findById(id);
-        car.setOwner(client);
-        client.getCars().add(car);
+//        car.setOwner(client);
+//        repository.save(car);
+//        client.setCars(List.of(car));
+        clientsRepository.save(client);
+        //System.out.println(car.getOwner().getCars());
+        //client.getCars().add(car);
     }
 }

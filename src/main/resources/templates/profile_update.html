@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Обновление профиля</title>
+    <link rel="stylesheet" th:href="@{/css/registration.css}">
+    <link type="Image/x-icon" th:href="@{/pictures/favicon.png}" rel="icon">
 </head>
-<body>
+<body th:object="${current_profile}">
 <div class="form">
-    <form th:method="PATCH" th:action="@{/client/update}" th:object="${client}">
-        <h2>Регистрация</h2>
+    <form th:method="PATCH" th:action="@{/{role}/update(role=${current_profile.getRole().getRole().toLowerCase().split('_')[1]})}">
+        <h2>Обновление профиля</h2>
         <div class="group">
             <div style="color: #941919" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
             <label for="name" class="label">Имя пользователя</label>
@@ -38,7 +40,7 @@
         </div>
     </form>
     <div class="group">
-        <a th:href="@{/client/authentication}" class="redirect">Отмена</a>
+        <a th:href="@{/{role}/profile(role=${current_profile.getRole().getRole().toLowerCase().split('_')[1]})}" class="redirect">Отмена</a>
     </div>
 </div>
 </body>

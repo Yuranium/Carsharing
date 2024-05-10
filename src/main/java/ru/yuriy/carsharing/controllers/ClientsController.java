@@ -17,6 +17,8 @@ import ru.yuriy.carsharing.service.ClientsService;
 import ru.yuriy.carsharing.validator.ClientValidator;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 @Controller
 @RequestMapping("/client")
@@ -85,13 +87,28 @@ public class ClientsController
         return "redirect:/";
     }
 
-    @PatchMapping("/update")
-    public String updateAdmin()
+    @GetMapping("/update")
+    public String update(Model model)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Client client = (Client) authentication.getPrincipal();
-        service.updateCurrentProfile(client.getId(), client.getCars(), client.getName(), client.getAge(), client.getPassword(),
+        model.addAttribute("current_profile", service.findById(client.getId()));
+        return "profile_update";
+    }
+
+    @PatchMapping("/update")
+    public String updateAdmin(@ModelAttribute("current_profile") @Valid Client client, BindingResult result, Model model)
+    {
+        Client temp = (Client) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        client.setRole(temp.getRole());
+        if (result.hasErrors())
+            return "profile_update";
+        service.updateCurrentProfile(temp.getId(), client.getName(), client.getAge(), client.getPassword(),
                 client.getEmail(), client.getDrivingExperience());
+        model.addAttribute("client", service.findById(temp.getId()));
+        client.setRole(temp.getRole());
+        client.setPassword(encoder.encode(client.getPassword()));
+        service.updateCurrentProfile(temp.getId(), client.getName(), client.getAge(), client.getPassword(), client.getEmail(), client.getDrivingExperience());
         return "client_profile";
     }
 }

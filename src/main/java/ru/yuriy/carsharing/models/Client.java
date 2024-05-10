@@ -26,8 +26,8 @@ public class Client implements UserDetails
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(mappedBy = "owner")
-    private List<Car> cars;
+//    @OneToMany(mappedBy = "owner")
+//    private List<Car> cars;
 
     @Column(name = "name")
     @NotEmpty(message = "Имя не может быть пустым!")

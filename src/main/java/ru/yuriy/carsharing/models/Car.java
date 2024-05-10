@@ -17,9 +17,9 @@ public class Car
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
-    private Client owner;
+//    @ManyToOne
+//    @JoinColumn(name = "client_id", referencedColumnName = "id")
+//    private Client owner;
 
     @Column(name = "image")
     private String image;

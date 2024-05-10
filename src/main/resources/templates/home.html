@@ -13,7 +13,7 @@
 </header>
 <nav>
     <ul th:object="${auth}">
-        <li><a th:href="@{/{path}/profile(path=${auth.getRole().getRole().toLowerCase()})}"
+        <li><a th:href="@{/{path}/profile(path=${auth.getRole().getRole().toLowerCase().split('_')[1]})}"
                th:if="${auth != null}">Профиль</a></li>
         <li><a th:href="@{/logout}" th:if="${auth != null}">Выход</a></li>
         <li><a th:href="@{/registration}" th:if="${auth == null}">Зарегистрироваться</a></li>

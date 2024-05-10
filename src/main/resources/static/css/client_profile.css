@@ -63,12 +63,16 @@ body {
     padding: 3%;
 }
 
-.client-block {
+/*.client-block {
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}*/
+.client-block > div
+{
+    padding-bottom: 3%;
 }
 
 .client-image img {
@@ -98,4 +102,56 @@ body {
 
 .rent-button a:hover {
     background-color: #0056b3;
+}
+.client-description {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+
+    border-radius: 8px;
+    box-shadow: 0 2px 25px rgba(0, 0, 0, 0.64);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.client-description section {
+    flex: 1 0 48%;
+    margin-bottom: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.client-description span {
+    display: block;
+    width: 100%;
+    font-weight: bold;
+}
+.client-description span {
+    color: #333;
+}
+.client-description section:last-child span {
+    color: #007bff;
+}
+.rent-button {
+    display: flex; /* Используем flexbox для расположения формы и кнопки */
+    align-items: center; /* Выравниваем элементы по вертикали */
+    margin-top: 20px; /* Отступ сверху для разделения от предыдущих секций */
+    margin-left: auto; /* Автоматический отступ слева для центрирования */
+    margin-right: auto; /
+}
+.rent-button form {
+
+}
+.button_clients {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Плавный переход цвета фона при наведении */
+}
+.button_clients:hover {
+    background-color: #0056b3; /* Темнее при наведении */
 }

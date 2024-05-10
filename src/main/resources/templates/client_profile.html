@@ -39,10 +39,10 @@
         </div>
         <div class="profile-circle">
             <div th:text="${client.name.toUpperCase.charAt(0)}" class="circle"></div>
-            <form th:method="PATCH" th:action="@{/{role}/update(role=${client.getRole().getRole().toLowerCase()})}">
-                <input type="submit" class="button" value="Редактировать профиль">
-            </form>
-            <form th:method="DELETE" th:action="@{/{role}/delete(role=${client.getRole().getRole().toLowerCase()})}">
+            <a class="button" th:href="@{/{role}/update(role=${client.getRole().getRole().toLowerCase().split('_')[1]})}">
+                <button>Редактировать профиль</button>
+            </a>
+            <form th:method="DELETE" th:action="@{/{role}/delete(role=${client.getRole().getRole().toLowerCase().split('_')[1]})}">
                 <input type="submit" class="button" value="Удалить профиль">
             </form>
         </div>
@@ -55,20 +55,30 @@
 <!--            <img th:src="@{}" alt="Client">-->
 <!--        </div>-->
         <div class="client-description">
-            <span>ID пользователя</span><p th:text="${user.getId()}"></p>
-            <span>Арендовано автомобилей: </span><p th:text="${user.getCars().size()}"></p>
-            <span>Имя пользователя: </span><p th:text="${user.getName()}"></p>
-            <span>Роль: </span><p th:text="${user.getRole()}"></p>
-            <span>Возраст пользователя: </span><p th:text="${user.getAge()}"></p>
-            <span>Электронная почта пользователя: </span><p th:text="${user.getEmail()}"></p>
-            <span>Стаж вождения: </span><p th:text="${user.getDrivingExperience()}"></p>
+            <section>
+                <span>ID пользователя: </span><span th:text="${user.getId()}"></span>
+            </section>
+            <section>
+                <span>Имя пользователя: </span><span th:text="${user.getName()}"></span>
+            </section>
+            <section>
+                <span>Роль: </span><span th:text="${user.getRole()}"></span>
+            </section>
+            <section>
+                <span>Возраст пользователя: </span><span th:text="${user.getAge()}"></span>
+            </section>
+            <section>
+                <span>Электронная почта пользователя: </span><span th:text="${user.getEmail()}"></span>
+            </section>
+            <section>
+                <span>Стаж вождения: </span><span th:text="${user.getDrivingExperience()}"></span>
+            </section>
+            <div class="rent-button">
+                <form th:method="DELETE" th:action="@{/admin/client/{id}(id=${user.getId()})}">
+                    <input type="submit" class="button_clients" value="Удалить пользователя">
+                </form>
+            </div>
         </div>
-        <div class="rent-button">
-            <form th:method="DELETE" th:action="@{/admin/client/{id}(id=${user.getId()})}">
-                <input type="submit" class="button" value="Удалить пользователя">
-            </form>
-        </div>
-        <br>
     </div>
 </div>
 </body>

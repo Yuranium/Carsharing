@@ -20,9 +20,9 @@ public interface ClientsRepository extends CrudRepository<Client, Integer>
 
     @Transactional
     @Modifying
-    @Query("UPDATE Client c SET c.cars = :cars, c.name = :name, c.age = :age, c.password = :password, c.email = :email," +
+    @Query("UPDATE Client c SET c.name = :name, c.age = :age, c.password = :password, c.email = :email," +
             "c.drivingExperience = :drivingExperience WHERE c.id = :id")
-    void updateClientById(int id, List<Car> cars, String name, int age, String password, String email, int drivingExperience);
+    void updateClientById(int id, String name, int age, String password, String email, int drivingExperience);
 
     void deleteById(int id);
 }

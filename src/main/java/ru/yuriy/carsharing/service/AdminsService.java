@@ -10,6 +10,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yuriy.carsharing.enums.ClientRole;
+import ru.yuriy.carsharing.models.Car;
 import ru.yuriy.carsharing.models.Client;
 import ru.yuriy.carsharing.repository.AdminsRepository;
 
@@ -39,6 +40,12 @@ public class AdminsService
     }
 
     @Transactional
+    public Client findById(int id)
+    {
+        return repository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Такой пользователь не найден!"));
+    }
+
+    @Transactional
     public void deleteCurrentProfile(HttpServletRequest request, HttpServletResponse response)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -51,8 +58,21 @@ public class AdminsService
     }
 
     @Transactional
+    public void save(Client client)
+    {
+        repository.save(client);
+    }
+
+    @Transactional
     public void deleteById(int id)
     {
         repository.deleteById(id);
+    }
+
+    @Transactional
+    public void updateCurrentProfile(int id, String name, int age,
+                                     String password, String email, int drivingExperience)
+    {
+        repository.updateClientById(id, name, age, password, email, drivingExperience);
     }
 }
