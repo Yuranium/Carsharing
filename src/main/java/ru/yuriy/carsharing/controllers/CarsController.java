@@ -50,13 +50,10 @@ public class CarsController
         return "car_profile";
     }
 
-    @PostMapping("/rent_car/{id}")
+    @GetMapping("/rent_car/{id}")
     public String rentCar(@PathVariable("id") int id)
     {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Client client = (Client) authentication.getPrincipal();
-        Car car = service.findById(id);
-        client.getCars().add(car);
+        service.rentCar(id);
         return "cars";
     }
 }

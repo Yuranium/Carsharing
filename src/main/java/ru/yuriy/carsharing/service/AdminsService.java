@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,12 @@ public class AdminsService
     public List<Client> findByRole(ClientRole role)
     {
         return repository.findByRole(role);
+    }
+
+    @Transactional
+    public Client findByName(String name)
+    {
+        return repository.findByName(name).orElseThrow(() -> new UsernameNotFoundException("Такой пользователь не найден!"));
     }
 
     @Transactional

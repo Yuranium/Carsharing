@@ -16,6 +16,8 @@ import ru.yuriy.carsharing.models.Client;
 import ru.yuriy.carsharing.service.ClientsService;
 import ru.yuriy.carsharing.validator.ClientValidator;
 
+import java.util.ArrayList;
+
 @Controller
 @RequestMapping("/client")
 public class ClientsController
@@ -49,7 +51,6 @@ public class ClientsController
         client.setRole(ClientRole.CLIENT);
         client.setPassword(encoder.encode(client.getPassword()));
         service.save(client);
-        System.out.println("Стабильно: " + client);
         return "redirect:/";
     }
 

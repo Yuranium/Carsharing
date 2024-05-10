@@ -36,7 +36,7 @@ public class SecurityConfig
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/", "/about_us", "/car/**", "/login", "/logout", "/registration",
                                 "client/new","client/login", "client/authentication")
-                        .permitAll()/*.anyRequest().hasAnyRole("GUEST", "USER", "ADMIN")*/
+                        /*.permitAll().anyRequest()*/.hasAnyRole("GUEST", "CLIENT", "ADMIN")
                         .requestMatchers("/resources/**", "/static/**", "/css/**", "/pictures/**",
                                 "/sql/**", "/templates/**", "/errors/**").permitAll()
                         .anyRequest().authenticated()

@@ -7,10 +7,10 @@
     <link rel="stylesheet" th:href="@{/css/client_profile.css}">
     <link type="Image/x-icon" th:href="@{/pictures/favicon.png}" rel="icon">
 </head>
-<body>
+<body th:object="${client}">
 <div class="profile-container">
     <h1>Профиль пользователя</h1>
-    <div th:object="${client}" class="profile-cont">
+    <div class="profile-cont">
         <div class="profile-info">
             <div>
                 <label for="userId">Уникальное ID:</label>
@@ -18,7 +18,7 @@
             </div>
             <div>
                 <label for="username">Имя пользователя:</label>
-                <span th:text="${client.name}" id="username"></span>
+                <span th:text="${client.getName()}" id="username"></span>
             </div>
             <div>
                 <label for="age">Возраст:</label>

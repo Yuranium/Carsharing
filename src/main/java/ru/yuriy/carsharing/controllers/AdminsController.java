@@ -15,7 +15,9 @@ import ru.yuriy.carsharing.models.Client;
 import ru.yuriy.carsharing.service.AdminsService;
 import ru.yuriy.carsharing.service.ClientsService;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -33,9 +35,17 @@ public class AdminsController
     @GetMapping("/profile")
     public String profile(Model model)
     {
-        model.addAttribute("users", adminsService.findByRole(ClientRole.CLIENT)
-                .stream().sorted(Comparator.comparingInt(Client::getDrivingExperience))
-                .collect(Collectors.toList()));
+        Client client = adminsService.findByName(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("client", client);
+        List<Client> clients = adminsService.findByRole(ClientRole.CLIENT)
+                .stream().map(c -> {
+                    if (c.getCars() == null)
+                        c.setCars(new ArrayList<>());
+                    return c;
+    })
+                .sorted(Comparator.comparingInt(Client::getDrivingExperience))
+                .toList();
+        model.addAttribute("users", clients);
         return "client_profile";
     }
 
