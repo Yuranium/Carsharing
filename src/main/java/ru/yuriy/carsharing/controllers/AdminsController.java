@@ -25,15 +25,12 @@ public class AdminsController
 {
     private final AdminsService adminsService;
 
-    private final ClientValidator validator;
-
     private final PasswordEncoder encoder;
 
     @Autowired
-    public AdminsController(AdminsService service, ClientValidator validator, PasswordEncoder encoder)
+    public AdminsController(AdminsService service, PasswordEncoder encoder)
     {
         this.adminsService = service;
-        this.validator = validator;
         this.encoder = encoder;
     }
 

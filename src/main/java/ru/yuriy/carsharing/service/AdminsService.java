@@ -58,12 +58,6 @@ public class AdminsService
     }
 
     @Transactional
-    public void save(Client client)
-    {
-        repository.save(client);
-    }
-
-    @Transactional
     public void deleteById(int id)
     {
         repository.deleteById(id);
