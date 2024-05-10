@@ -24,13 +24,10 @@ public class AdminsController
 {
     private final AdminsService adminsService;
 
-    private final ClientsService clientsService;
-
     @Autowired
-    public AdminsController(AdminsService service, ClientsService clientsService)
+    public AdminsController(AdminsService service)
     {
         this.adminsService = service;
-        this.clientsService = clientsService;
     }
 
     @GetMapping("/profile")
@@ -45,7 +42,7 @@ public class AdminsController
     @DeleteMapping("/client/{id}")
     public String deleteClient(@PathVariable("id") int id)
     {
-        clientsService.deleteUserById(id);
+        adminsService.deleteById(id);
         return "redirect:/client_profile";
     }
 
@@ -54,13 +51,5 @@ public class AdminsController
     {
         adminsService.deleteCurrentProfile(request, response);
         return "redirect:/";
-    }
-
-    @PatchMapping("/update")
-    public String updateAdmin()
-    {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Client client = (Client) authentication.getPrincipal();
-        return "profile_update";
     }
 }

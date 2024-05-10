@@ -42,4 +42,10 @@ public class AdminsService
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
     }
+
+    @Transactional
+    public void deleteById(int id)
+    {
+        repository.deleteById(id);
+    }
 }

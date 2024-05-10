@@ -3,6 +3,9 @@ spring.application.name=
 spring.main.allow-bean-definition-overriding=
 spring.main.allow-circular-references=
 
+# Configuration Spring MVC
+spring.mvc.hiddenmethod.filter.enabled=
+
 # Database
 spring.datasource.url=
 spring.datasource.username=

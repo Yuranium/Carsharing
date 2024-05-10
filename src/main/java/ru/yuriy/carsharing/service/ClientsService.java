@@ -8,14 +8,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.yuriy.carsharing.enums.ClientRole;
+import ru.yuriy.carsharing.models.Car;
 import ru.yuriy.carsharing.models.Client;
 import ru.yuriy.carsharing.repository.ClientsRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,13 +23,10 @@ public class ClientsService implements UserDetailsService
 {
     private final ClientsRepository repository;
 
-    //private final PasswordEncoder encoder;
-
     @Autowired
-    public ClientsService(ClientsRepository repository/*, PasswordEncoder encoder*/)
+    public ClientsService(ClientsRepository repository)
     {
         this.repository = repository;
-        //this.encoder = encoder;
     }
 
     @Override
@@ -64,5 +61,11 @@ public class ClientsService implements UserDetailsService
             repository.deleteById(client.getId());
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
+    }
+
+    public void updateCurrentProfile(int id, List<Car> cars, String name, int age,
+                                     String password, String email, int drivingExperience)
+    {
+        repository.updateClientById(id, cars, name, age, password, email, drivingExperience);
     }
 }

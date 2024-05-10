@@ -13,7 +13,7 @@
             <img class="profile-bgHome" th:src="@{${car.getImage()}}" alt="Car"/>
         </div>
         <a class="btn" th:href="@{/car}">Назад</a>
-        <a class="right_button" th:href="@{/}">Арендовать</a>
+        <a class="right_button" th:href="@{/car/rent_car/{id}(id=${car.getId()})}">Арендовать</a>
         <div class="user-profile-data">
             <h1 th:text="${car.getName()}"></h1>
             <p th:text="${car.getPrice_per_min()} + ' руб. мин.'"></p>
