@@ -1,4 +1,7 @@
-FROM ubuntu:latest
-LABEL authors="Yuriy"
+FROM openjdk:17-jdk-alpine
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /app
+
+COPY target/carsharing-0.0.1-SNAPSHOT.jar /app/carsharing-0.0.1-SNAPSHOT.jar
+
+ENTRYPOINT ["java", "-jar", "carsharing-0.0.1-SNAPSHOT.jar"]
